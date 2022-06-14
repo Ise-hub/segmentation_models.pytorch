@@ -8,3 +8,6 @@ RUN pip install pytest mock
 
 COPY . /tmp/smp/
 RUN pip install .
+RUN pip install jupyter lab
+RUN pip install jupyter notebook
+WORKDIR /home/test
