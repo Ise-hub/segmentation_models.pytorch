@@ -7,6 +7,7 @@ RUN pip install -r requirements.txt
 RUN pip install pytest mock
 
 COPY . /tmp/smp/
+RUN pip install --upgrade pip setuptools
 RUN pip install .
 RUN pip install jupyter lab
 RUN pip install jupyter notebook
