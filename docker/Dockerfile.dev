@@ -1,5 +1,9 @@
 FROM anibali/pytorch:1.11.0-cuda11.5
 
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
 WORKDIR /tmp/smp/
 
 COPY ./requirements.txt /tmp/smp/requirements.txt
@@ -7,9 +11,6 @@ RUN pip install -r requirements.txt
 RUN pip install pytest mock
 
 COPY . /tmp/smp/
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 RUN pip install --upgrade pip setuptools
 RUN pip install .
 RUN pip install jupyter lab
