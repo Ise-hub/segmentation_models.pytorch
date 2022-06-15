@@ -1,4 +1,5 @@
 FROM anibali/pytorch:1.5.0-nocuda
+USER root
 
 WORKDIR /tmp/smp/
 
