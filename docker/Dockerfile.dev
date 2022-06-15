@@ -1,8 +1,6 @@
 FROM anibali/pytorch:1.11.0-cuda11.5
 
-USER root
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-USER 1001
+COPY --chown=1019 entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
