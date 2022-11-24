@@ -15,5 +15,6 @@ RUN pip install segmentation-models-pytorch
 RUN pip install pytorch-lightning==1.5.4
 RUN pip install opencv-python
 RUN pip install tensorflow-gpu
+RUN pip install optuna
 
 WORKDIR /home/test
