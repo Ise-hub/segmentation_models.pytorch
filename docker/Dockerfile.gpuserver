@@ -16,5 +16,6 @@ RUN pip install pytorch-lightning==1.5.4
 RUN pip install opencv-python
 RUN pip install tensorflow-gpu
 RUN pip install optuna
+RUN pip install pandas
 
 WORKDIR /home/test
