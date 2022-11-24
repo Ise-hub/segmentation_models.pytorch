@@ -12,7 +12,7 @@ RUN pip install .
 RUN pip install jupyter lab
 RUN pip install jupyter notebook
 RUN pip install segmentation-models-pytorch
-RUN pip install pytorch-lightning==1.5.4 cuda==10.2
+RUN pip install pytorch-lightning
 RUN pip install opencv-python
 RUN pip install tensorflow-gpu
 RUN pip install optuna
