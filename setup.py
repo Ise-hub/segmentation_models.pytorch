@@ -16,8 +16,8 @@ NAME = "segmentation_models_pytorch"
 DESCRIPTION = "Image segmentation models with pre-trained backbones. PyTorch."
 URL = "https://github.com/qubvel/segmentation_models.pytorch"
 EMAIL = "qubvel@gmail.com"
-AUTHOR = "Pavel Yakubovskiy"
-REQUIRES_PYTHON = ">=3.6.0"
+AUTHOR = "Pavel Iakubovskii"
+REQUIRES_PYTHON = ">=3.7.0"
 VERSION = None
 
 # The rest you shouldn't have to touch too much :)
@@ -35,7 +35,16 @@ except:
     REQUIRED = []
 
 # What packages are optional?
-EXTRAS = {"test": ["pytest", "mock", "pre-commit", "flake8==4.0.1", "flake8-docstrings==1.6.0"]}
+EXTRAS = {
+    "test": [
+        "pytest",
+        "mock",
+        "pre-commit",
+        "black==22.3.0",
+        "flake8==4.0.1",
+        "flake8-docstrings==1.6.0",
+    ],
+}
 
 # Import the README and use it as the long-description.
 # Note: this will only work if 'README.md' is present in your MANIFEST.in file!

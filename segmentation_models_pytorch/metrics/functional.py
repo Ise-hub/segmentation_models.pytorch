@@ -65,7 +65,7 @@ def get_stats(
     ignore_index: Optional[int] = None,
     threshold: Optional[Union[float, List[float]]] = None,
     num_classes: Optional[int] = None,
-) -> Tuple[torch.LongTensor]:
+) -> Tuple[torch.LongTensor, torch.LongTensor, torch.LongTensor, torch.LongTensor]:
     """Compute true positive, false positive, false negative, true negative 'pixels'
     for each image and each class.
 
@@ -121,7 +121,7 @@ def get_stats(
         )
 
     if torch.is_floating_point(output) and mode == "multiclass":
-        raise ValueError(f"For ``multiclass`` mode ``target`` should be one of the integer types, got {output.dtype}.")
+        raise ValueError(f"For ``multiclass`` mode ``output`` should be one of the integer types, got {output.dtype}.")
 
     if mode not in {"binary", "multiclass", "multilabel"}:
         raise ValueError(f"``mode`` should be in ['binary', 'multiclass', 'multilabel'], got mode={mode}.")
@@ -260,7 +260,7 @@ def _compute_metric(
         tn = tn.sum()
         score = metric_fn(tp, fp, fn, tn, **metric_kwargs)
 
-    elif reduction == "macro" or reduction == "weighted":
+    elif reduction == "macro":
         tp = tp.sum(0)
         fp = fp.sum(0)
         fn = fn.sum(0)
@@ -268,6 +268,15 @@ def _compute_metric(
         score = metric_fn(tp, fp, fn, tn, **metric_kwargs)
         score = _handle_zero_division(score, zero_division)
         score = (score * class_weights).mean()
+
+    elif reduction == "weighted":
+        tp = tp.sum(0)
+        fp = fp.sum(0)
+        fn = fn.sum(0)
+        tn = tn.sum(0)
+        score = metric_fn(tp, fp, fn, tn, **metric_kwargs)
+        score = _handle_zero_division(score, zero_division)
+        score = (score * class_weights).sum()
 
     elif reduction == "micro-imagewise":
         tp = tp.sum(1)
@@ -300,8 +309,8 @@ def _compute_metric(
 
 
 def _fbeta_score(tp, fp, fn, tn, beta=1):
-    beta_tp = (1 + beta ** 2) * tp
-    beta_fn = (beta ** 2) * fn
+    beta_tp = (1 + beta**2) * tp
+    beta_fn = (beta**2) * fn
     score = beta_tp / (beta_tp + beta_fn + fp)
     return score
 
